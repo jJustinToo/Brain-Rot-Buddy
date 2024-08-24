@@ -1,0 +1,10 @@
+.venv/
+
+# PWs
+config.py
+
+# VIDEO & FAT FILES
+resources/
+static/output/
+outputTMP/
+tts/

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Rot Buddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="loadingScreen" class="loading-overlay hidden">
+        <img src="{{ url_for('static', filename='skull_loading.gif') }}" alt="Loading" class="skull">
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+
+    <div class="bg">
+        <img src="{{ url_for('static', filename = 'background_images/brainrotbackground.jpg') }}" alt="Background Image">
+        <img src="{{ url_for('static', filename = 'background_images/brainrotbackground.jpg') }}" alt="Background Image">
+    </div>
+
+    <div class="container">
+        <h1>Brain Rot Buddy</h3>
+        <p class="text-center">"Brain Rot" describes content considered to be of low value, such as internet memes.</p>
+        
+        <!-- <br>
+        <label>Google Search</label>
+        <form action="https://www.google.com/search" method="get" target="_blank">
+            <input autocomplete="off" name='q' placeholder="Search" type="text">
+            <button type="submit">Search</button>
+        </form> -->
+        <br>
+        <form action="/video" method="post">
+            
+            <select autocomplete="off" id="videoType" name="videoType" onchange="showFields()" required>
+                <option selected disabled value="">Choose a video type</option>
+                {% for videoType in videoTypes %}<option value="{{ videoType }}">{{ videoTypes[videoType] }}</option>
+                {% endfor %}
+            </select>
+            
+            <div id="redditFields" class="hidden">
+                <input autocomplete="off" autofocus id="topic" name='topic' placeholder="Your topic of interest" type="text">
+                <input autocomplete="off" type="text" name="red_story" placeholder="Company Name">
+                <input autocomplete="off" type="text" name="promoGoal" placeholder="Promotion's goal">
+            </div>
+
+            <button id="submitButton" type="submit">Search</button>
+        </form>
+
+        <script>
+            function showFields() {
+                const videoType = document.getElementById('videoType').value;
+
+                document.getElementById('redditFields').classList.add('hidden');
+
+                if (videoType === "reddit") {
+                    document.getElementById("redditFields").classList.remove("hidden");
+                }
+            }
+
+            document.getElementById('submitButton').addEventListener('click', function() {
+                if (document.getElementById('videoType').value && document.getElementById('topic').value) {
+                    document.getElementById('loadingScreen').style.display = 'flex'; // Show the loading screen
+                }
+
+            });
+        </script>
+    </div>
+</body>
+</html>
