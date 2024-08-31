@@ -12,3 +12,8 @@ add word limit when i reach there,
 
 Types of BrainRot:
 * 
+TikTok TTS
+https://github.com/Giooorgiooo/TikTok-Voice-TTS
+
+
+add word limit when i reach there,
