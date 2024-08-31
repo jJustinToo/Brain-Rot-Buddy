@@ -1,15 +1,15 @@
 from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip, AudioFileClip
 import random
 
-def reddit_story(video, audio, output, usr_input):
+def editRedditStory(background_video, tts, output, usr_input):
     # Load the video file
     
     # with AudioFileClip(audio_file) as audio_clip:
     #     # Get the duration of the audio clip (in seconds)
     #     duration = audio_clip.duration
 
-    audio_clip = AudioFileClip(audio)
-    video_clip = VideoFileClip(video)
+    audio_clip = AudioFileClip(tts)
+    video_clip = VideoFileClip(background_video)
     
     rnd_time = random.randint(200, int(video_clip.duration) - 200)
     video_clip = video_clip.subclip(rnd_time,rnd_time + audio_clip.duration)
@@ -23,5 +23,5 @@ def reddit_story(video, audio, output, usr_input):
     video_clip.close()
     audio_clip.close()
 
-# reddit_story("resources/parkour.mp4", "resources/output.mp3", "output/output_video.mp4", 0)
+# editRedditStory("resources/background.mov", "resources/output.mp3", "output/output_video.mp4", 0)
 

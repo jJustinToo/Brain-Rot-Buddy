@@ -10,6 +10,15 @@ body, html {
     display: none;
 }
 
+.waiting {
+    background-color: rgb(0, 0, 0, 0.25);   /* Black background */
+    color: white;              /* White text for contrast */
+    padding: 10px 15px;        /* Space around the text */
+    border-radius: 8px;        /* Rounded corners */
+    display: inline-block;     /* Shrinks the box to fit the text */
+    font-weight: bold;         /* Bold text */
+}
+
 .container {
     position: relative;
     background-color: rgba(255, 255, 255, 0.8);
@@ -112,7 +121,7 @@ button:hover {
 .skull {
     width: 75px; /* Smaller width */
     height: 75px; /* Smaller height */
-    margin-bottom: 15px; /* Reduced space between GIF and bar */
+     /* Reduced space between GIF and bar */
 }
 
 /* Styling for smaller loading bar */
@@ -123,6 +132,7 @@ button:hover {
     border-radius: 5px; /* Rounded corners for the container */
     overflow: hidden; /* Ensure the bar doesn't overflow */
     border: 1px solid #ddd; /* Border color */
+    margin: 20px;
 }
 
 .loading-bar {
