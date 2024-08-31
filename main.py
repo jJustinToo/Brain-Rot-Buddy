@@ -25,7 +25,7 @@ def redditStory(videoType, topic, userInput):
     text = generateRedditStory(topic)
     # text = f"Hi you want a video that is about {topic} and a video that is a {videoTypes[videoType]}" # RUN texst = CHATGPT(USR INPUT) or whatever in future
     tts(text, "en_us_006", f"tts/{topic}_{videoType}_audio.mp3") # Generate TTS file
-    editRedditStory("resources/background.mov", f"tts/{topic}_{videoType}_audio.mp3", f"static/output/{topic}_{videoType}.mp4", userInput) # Generate video
+    editRedditStory("resources/parkour.mp4", f"tts/{topic}_{videoType}_audio.mp3", f"static/output/{topic}_{videoType}.mp4", userInput) # Generate video
 
 
 def familyGuy():
@@ -47,7 +47,7 @@ def videos():
     
     if videoType == "reddit":
         userInput = {"red_story", request.form.get("red_story"), "promoGoal", request.form.get("promoGoal")}
-        # redditStory(videoType, topic, userInput)
+        redditStory(videoType, topic, userInput)
     elif videoType == "familyGuy":
         familyGuy()
     
