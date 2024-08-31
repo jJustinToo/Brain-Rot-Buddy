@@ -8,5 +8,6 @@ config.py
 # VIDEO & FAT FILES
 resources/
 static/output/
+static/loading_videos/
 outputTMP/
 tts/
