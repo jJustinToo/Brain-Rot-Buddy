@@ -9,5 +9,6 @@ config.py
 resources/
 static/output/
 static/loading_videos/
+static/preview_images/
 outputTMP/
 tts/

@@ -147,3 +147,19 @@ button:hover {
     50% { width: 50%; }
     100% { width: 100%; }
 }
+
+.preview-container {
+    position: absolute;
+    top: 20%; /* Adjust the top position as needed */
+    right: 10%; /* Position it towards the right side */
+    width: 240px; /* 9:16 aspect ratio width */
+    height: 427px; /* 9:16 aspect ratio height */
+    border: 2px solid #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

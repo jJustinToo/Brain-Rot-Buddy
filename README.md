@@ -8,6 +8,7 @@ Add
 * static/output folder
 * tts folder 
 * static/loading_images folder
+* static/preview_images folder
 
 
 https://www.youtube.com/watch?v=ma12cfzGnRo
