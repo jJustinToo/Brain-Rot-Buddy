@@ -5,6 +5,7 @@
 
 import requests, base64, re, sys
 from threading import Thread
+from termcolor import colored
 
 # define the endpoint data with URLs and corresponding response keys
 ENDPOINT_DATA = [
@@ -138,7 +139,7 @@ def tts(text: str, voice: str, output_filename: str = "output.mp3") -> None:
         # write the audio data to a file
         with open(output_filename, "wb") as file:
             file.write(audio_bytes)
-            print(f"File '{output_filename}' has been generated successfully.")
+            print(colored(f"File '{output_filename}' has been generated successfully.", "green"))
         
         # break after processing a valid endpoint
         break

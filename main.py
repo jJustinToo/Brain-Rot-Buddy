@@ -17,7 +17,7 @@ def main():
         shutil.rmtree('static/output')
     os.makedirs('static/output')
     
-    print('Successfully deleted all contents in "tts" folder and "static/output" folder.')
+    print(colored('Successfully deleted all contents in "tts" folder and "static/output" folder.', "red"))
     
     input = ""
     # print(config.api_key)

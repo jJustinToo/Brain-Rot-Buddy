@@ -1,5 +1,6 @@
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
+from termcolor import colored
 
 # model = OllamaLLM(model="llama3.1")
 model = OllamaLLM(model="gemma2:2b")
@@ -13,7 +14,7 @@ redditChain = redditPrompt | model
 def generateRedditStory(topic: str):
     print(f'Generating a reddit story about "{topic}"...')
     result = redditChain.invoke({"topic": topic})
-    print(f'Text for a reddit story based on "{topic}" has been generated succesfully.')
+    print(colored(f'Text for a reddit story based on "{topic}" has been generated succesfully.', "green"))
     return result
 
 def produceImages(topic):
