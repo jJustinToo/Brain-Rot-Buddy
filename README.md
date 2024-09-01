@@ -4,6 +4,7 @@ Add
 * resources folder
 * static/output folder
 * tts folder 
+* static/loading_images folder
 
 
 https://www.youtube.com/watch?v=ma12cfzGnRo

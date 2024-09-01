@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import config
-from tiktok_voice_tts import tts
+from text_to_speech import tts
 from editing import * 
 from chatbot import *
 import os, shutil

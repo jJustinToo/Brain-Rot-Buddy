@@ -11,7 +11,7 @@ def editRedditStory(background_video, tts, output, usr_input):
     audio_clip = AudioFileClip(tts)
     video_clip = VideoFileClip(background_video)
     
-    rnd_time = random.randint(200, int(video_clip.duration) - 200)
+    rnd_time = random.randint(0, int(video_clip.duration))
     video_clip = video_clip.subclip(rnd_time,rnd_time + audio_clip.duration)
     
     video_clip = video_clip.set_audio(audio_clip)
