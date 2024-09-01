@@ -3,7 +3,7 @@ from langchain_core.prompts import ChatPromptTemplate
 
 model = OllamaLLM(model="llama3.1")
 def generateRedditStory(topic):
-    print("Generating text...")
+    print("Generating reddit story text...")
     template = """
     Create a story based on the topic below
 
@@ -21,6 +21,7 @@ def generateRedditStory(topic):
     return result
 
 def produceImages(topic):
+    pass
     print("Generating text...")
     template = """
     Create a story based on the topic below
