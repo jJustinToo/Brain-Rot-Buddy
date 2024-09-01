@@ -5,7 +5,7 @@ from editing import *
 from chatbot import *
 import os, shutil
 
-videoTypes = {"reddit": "Reddit Story", "familyGuy": "Family Guy Clip"}
+videoTypes = {"reddit": "Reddit Story", "movieClip": "Movie Clip"}
 loading_video = []
 
 def main():
@@ -16,6 +16,8 @@ def main():
     if os.path.exists('static/output'):
         shutil.rmtree('static/output')
     os.makedirs('static/output')
+    
+    print('Successfully deleted all contents in "tts" folder and "static/output" folder.')
     
     input = ""
     # print(config.api_key)
@@ -28,7 +30,7 @@ def redditStory(videoType, topic, userInput):
     editRedditStory("resources/parkour.mp4", f"tts/{topic}_{videoType}_audio.mp3", f"static/output/{topic}_{videoType}.mp4", userInput) # Generate video
 
 
-def familyGuy():
+def movieClip():
     pass
 
 
@@ -46,10 +48,10 @@ def videos():
     # videoTypes[videoType]
     
     if videoType == "reddit":
-        userInput = {"red_story", request.form.get("red_story"), "promoGoal", request.form.get("promoGoal")}
+        userInput = {"red_story": request.form.get("red_story"), "promoGoal": request.form.get("promoGoal")}
         redditStory(videoType, topic, userInput)
     elif videoType == "familyGuy":
-        familyGuy()
+        movieClip()
     
     return render_template('video.html', output=f"output/{topic}_{videoType}.mp4")
     

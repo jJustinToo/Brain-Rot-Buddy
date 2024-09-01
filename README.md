@@ -1,4 +1,7 @@
-TikTok TTS https://github.com/Giooorgiooo/TikTok-Voice-TTS
+Requirements:
+* TikTok TTS https://github.com/Giooorgiooo/TikTok-Voice-TTS
+* Ollama and Gemma2:2b https://github.com/ollama/ollama?tab=readme-ov-file#model-library
+
 
 Add 
 * resources folder
@@ -17,4 +20,4 @@ TikTok TTS
 https://github.com/Giooorgiooo/TikTok-Voice-TTS
 
 
-add word limit when i reach there,
+add word limit when i reach there
