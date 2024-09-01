@@ -3,7 +3,7 @@ import config
 from text_to_speech import tts
 from editing import * 
 from chatbot import *
-import os, shutil
+import os, shutil, time
 
 videoTypes = {"reddit": "Reddit Story", "movieClip": "Movie Clip"}
 loading_video = []
@@ -47,12 +47,18 @@ def videos():
     
     # videoTypes[videoType]
     
+    start_time = time.time()  # Record the start time
+    print(f"{(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))}: Starting video generation...")
     if videoType == "reddit":
         userInput = {"red_story": request.form.get("red_story"), "promoGoal": request.form.get("promoGoal")}
         redditStory(videoType, topic, userInput)
     elif videoType == "familyGuy":
         movieClip()
+        
     
+    end_time = time.time()  # Record the end time
+    elapsed_time = end_time - start_time  
+    print(f"Total time to generate function was {elapsed_time} seconds.")
     return render_template('video.html', output=f"output/{topic}_{videoType}.mp4")
     
     
