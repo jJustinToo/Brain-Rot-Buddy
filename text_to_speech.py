@@ -139,7 +139,7 @@ def tts(text: str, voice: str, output_filename: str = "output.mp3") -> None:
         # write the audio data to a file
         with open(output_filename, "wb") as file:
             file.write(audio_bytes)
-            print(colored(f"File '{output_filename}' has been generated successfully.", "green"))
+            print("File " + colored(f"'{output_filename}'", "green") + " has been generated successfully.")
         
         # break after processing a valid endpoint
         break

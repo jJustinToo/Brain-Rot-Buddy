@@ -48,7 +48,14 @@
                 <input autocomplete="off" type="text" name="red_story" placeholder="Company Name">
                 <input autocomplete="off" type="text" name="promoGoal" placeholder="Promotion's goal">
             </div>
-
+            
+            <div id="wyrFields" class="hidden">
+                <div class="wyr-option">
+                    <input autocomplete="off" type="text" name="wyr_option_1[]" placeholder="Option 1">
+                    <input autocomplete="off" type="text" name="wyr_option_2[]" placeholder="Option 2">
+                </div>
+                <button type="button" onclick="addWyrOptions()">Add more options</button>
+            </div>
             <button id="submitButton" type="submit">Generate</button>
         </form>
 
@@ -57,9 +64,13 @@
                 const videoType = document.getElementById('videoType').value;
 
                 document.getElementById('redditFields').classList.add('hidden');
+                document.getElementById('wyrFields').classList.add('hidden');
 
                 if (videoType === "reddit") {
                     document.getElementById("redditFields").classList.remove("hidden");
+                }
+                if (videoType === "wyr") {
+                    document.getElementById("wyrFields").classList.remove("hidden");
                 }
             }
 
@@ -69,6 +80,18 @@
                 }
 
             });
+
+            function addWyrOptions() {
+                const wyrFields = document.getElementById('wyrFields');
+                const newOptions = document.createElement('div');
+                newOptions.classList.add('wyr-option');
+                newOptions.innerHTML = `
+                    <input autocomplete="off" type="text" name="wyr_option_1[]" placeholder="Option 1">
+                    <input autocomplete="off" type="text" name="wyr_option_2[]" placeholder="Option 2">
+                `;
+                wyrFields.insertBefore(newOptions, wyrFields.children[wyrFields.children.length - 1]);
+            }
+
         </script>
     </div>
 </body>
