@@ -20,7 +20,7 @@ templates = {
     "redditStory": """Write a Reddit-style story in the first person, starting with a catchy and dramatic title that captures attention. The title should mimic the style of popular Reddit posts, be between 15-20 words long, and include specific details such as age and gender (e.g., "I (33 MALE) am divorcing my wife (33 FEMALE) after discovering the truth."). Adjust the ages to fit the narrative.
 
     The story should follow the format and tone of posts commonly found in subreddits like r/relationships or r/AmItheAsshole, where the narrator describes a personal experience. The content should be engaging, believable, and evoke strong emotions, but it must remain plausible. The story should be 100-125 words long with no filler, focusing on making the narrative vivid, relatable, and memorable.
-    **Important:** Do not repeat or reuse the provided example titles or content. Create an original title and story based on the specific topic provided.
+    **Important:** Do not repeat or reuse the provided example titles or content. Create an original title and story based on the specific topic provided. 100-125 words is a hard rule. I will not accept a story with words less than or over
     Please only use text and proper grammer. 
     Please note that all text generated will be text to speeched later.
     
@@ -47,9 +47,9 @@ def generateRedditStory(topic: str):
     print(f'Generating a reddit story about "{topic}"...')
     result = redditChain.invoke({"topic": topic})
     print(colored(f'Text for a reddit story based on "{topic}" has been generated succesfully.', "green"))
-    return result.replace("##", "").strip()
+    return markdown_to_plain_text(result)
 
 def produceImages(topic):
     pass
 
-# print(generateRedditStory("AITA for refilling people's car gas tanks with water"))
+# print(generateRedditStory("Aam i the asshole for fingering a big beautiful jacked man with 160iq hunk of a beast named justin toh? my fingers went all the way into his rectum, and he squirmed around as if he liked it. was i in the wrong ofr this?"))
