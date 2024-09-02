@@ -5,7 +5,7 @@ from editing import *
 from chatbot import *
 import os, shutil, time
 
-videoTypes = {"reddit": "Reddit Story", "movieClip": "Movie Clip"}
+videoTypes = {"reddit": "Reddit Story", "movieClip": "Movie Clip", "wyr": "Would You Rather"}
 loading_video = []
 
 def main():
@@ -17,7 +17,7 @@ def main():
         shutil.rmtree('static/output')
     os.makedirs('static/output')
     
-    print(colored('Successfully deleted all contents in "tts" folder and "static/output" folder.', "red"))
+    print(f"{(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))}: " + colored('Successfully deleted all contents in "tts" folder and "static/output" folder.', "red"))
     
     input = ""
     # print(config.api_key)
@@ -54,6 +54,14 @@ def videos():
         redditStory(videoType, topic, userInput)
     elif videoType == "familyGuy":
         movieClip()
+    elif videoType == 'wyr':
+        wyr_options_1 = request.form.getlist('wyr_option_1[]')
+        wyr_options_2 = request.form.getlist('wyr_option_2[]')
+        # Process the "Would you rather" video data
+        
+        for option_1, option_2 in zip(wyr_options_1, wyr_options_2):
+            print(f"Option 1: {option_1}, Option 2: {option_2}")
+            # Handle the options
         
     
     end_time = time.time()  # Record the end time
@@ -64,5 +72,5 @@ def videos():
     
 if __name__ == '__main__':
     main()
-    app.run()
-    # app.run(debug=True)
+    # app.run()
+    app.run(debug=True)
