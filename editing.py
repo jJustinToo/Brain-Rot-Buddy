@@ -15,6 +15,11 @@ def editRedditStory(background_video_path: str, tts_path: str, output_path: str,
         
         
 def editWYR():
+    
+    # Audio files. 
+    # Images.
+    # Background, Music. Ticking sound. 
+    
     # take all audio files in tts / wyr folder with name == {topic}_{topic}_{i+1}
     # Speech to text that audio. Add images when needed. 
     pass

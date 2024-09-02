@@ -1,85 +1,89 @@
-from flask import Flask, render_template, request, jsonify
-import config
+from flask import Flask, render_template, request
+import os
+import shutil
+import time
 from text_to_speech import tts
-from editing import * 
-from chatbot import *
-import os, shutil, time
+from editing import editRedditStory, editWYR
+from chatbot import generateRedditStory
 
-videoTypes = {"reddit": "Reddit Story", "movieClip": "Movie Clip", "wyr": "Would You Rather"}
-loading_video = []
+# Define video types
+videoTypes = {
+    "reddit": "Reddit Story",
+    "movieClip": "Movie Clip",
+    "wyr": "Would You Rather"
+}
 
-def main():
+def setup_directories():
+    """Set up the necessary directories for video processing."""
+    # Clean and recreate 'tts' directory
     if os.path.exists('tts'):
         shutil.rmtree('tts')
     os.makedirs('tts')
-    os.makedirs('tts/wyr')
     
+    # Clean and recreate 'static/output' directory
     if os.path.exists('static/output'):
         shutil.rmtree('static/output')
     os.makedirs('static/output')
     
-    print(f"{(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))}: " + colored('Successfully deleted all contents in "tts" folder and "static/output" folder.', "red"))
-    
-    input = ""
-    # print(config.api_key)
-        
-        
-def redditStory(videoType, topic, userInput):
+    print(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}: Successfully deleted all contents in 'tts' and 'static/output' folders.")
+
+def process_reddit_story(videoType, topic, userInput):
+    """Generate a Reddit story video."""
     text = generateRedditStory(topic)
-    # text = f"Hi you want a video that is about {topic} and a video that is a {videoTypes[videoType]}" # RUN texst = CHATGPT(USR INPUT) or whatever in future
-    tts(text, "en_us_006", f"tts/{topic}_{videoType}_audio.mp3") # Generate TTS file
-    editRedditStory("resources/parkour.mp4", f"tts/{topic}_{videoType}_audio.mp3", f"static/output/{topic}_{videoType}.mp4", userInput) # Generate video
+    tts(text, "en_us_006", f"tts/{topic}_{videoType}_audio.mp3")  # Generate TTS file
+    editRedditStory("resources/parkour.mp4", f"tts/{topic}_{videoType}_audio.mp3", f"static/output/{topic}_{videoType}.mp4", userInput)  # Generate video
 
-
-def movieClip():
-    pass
-
-
-def wyr(op1_list, op2_list):
-    print(op1_list)
+def process_wyr(op1_list, op2_list):
+    """Generate a Would You Rather video."""
+    wyr_output_loc = f'tts/{op1_list[0]}'
+    if not os.path.exists(wyr_output_loc):
+        os.makedirs(wyr_output_loc)
+    
     for i in range(len(op1_list)):
-        text = f"Would you rather {op1_list[i]}. . . . . or Would you rather {op2_list[i]}"
-        tts(text, "en_us_006", f"tts/wyr/audio_{i+1}.mp3") # Generate TTS file
+        tts(op1_list[i], "en_us_006", f"{wyr_output_loc}/row{i+1}_op1.mp3")  # Generate TTS file
+        tts(op2_list[i], "en_us_006", f"{wyr_output_loc}/row{i+1}_op2.mp3")  # Generate TTS file
         
-    editWYR()
-    pass
-    # GENERATE TEX
+    editWYR()  # Edit WYR video
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
+    """Render the index page."""
     return render_template('index.html', videoTypes=videoTypes)
     
 @app.route('/video', methods=["POST"])
-def videos():
+def generate_video():
+    """Handle video generation based on user input."""
     videoType = request.form.get("videoType")
     topic = request.form.get('topic')
     
-    # videoTypes[videoType]
-    
-    start_time = time.time()  # Record the start time
-    print(f"{(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))}: Starting video generation...")
+    # Record start time
+    start_time = time.time()
+    print(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}: Starting video generation...")
+
     if videoType == "reddit":
-        userInput = {"red_story": request.form.get("red_story"), "promoGoal": request.form.get("promoGoal")}
-        redditStory(videoType, topic, userInput)
-    elif videoType == "familyGuy":
-        movieClip()
+        userInput = {
+            "red_story": request.form.get("red_story"),
+            "promoGoal": request.form.get("promoGoal")
+        }
+        process_reddit_story(videoType, topic, userInput)
+    elif videoType == "movieClip":
+        # Placeholder for movie clip processing
+        pass
     elif videoType == 'wyr':
         wyr_options_1 = request.form.getlist('wyr_option_1')
         wyr_options_2 = request.form.getlist('wyr_option_2')
+        process_wyr(wyr_options_1, wyr_options_2)
         
-        print(wyr_options_1)
-        wyr(wyr_options_1, wyr_options_2)
-        
-    
-    end_time = time.time()  # Record the end time
-    elapsed_time = end_time - start_time  
-    print(f"Total time to generate function was {elapsed_time} seconds.")
-    return render_template('video.html', output=f"output/{topic}_{videoType}.mp4") # THIS IS JUST EXAMPLE. EACH TYPE SHOULD RETURN ITS OWN FILE. I NEED BETTER FILE MANAGAEMENT.
-    
-    
+    # Record end time
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"Total time to generate function was {round(elapsed_time, 2)} seconds.")
+    output = f"output/{topic}_{videoType}.mp4"
+    # Return the path to the generated video
+    return render_template('video.html', output=output)
+
 if __name__ == '__main__':
-    main()
-    # app.run()
+    setup_directories()
     app.run(debug=True)
