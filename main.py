@@ -3,8 +3,8 @@ import os
 import shutil
 import time
 from text_to_speech import tts
-from editing import editRedditStory, editWYR
-from chatbot import generateRedditStory
+from compile_video import editRedditStory, editWYR
+from chat_generation import generateRedditStory
 
 # Define video types
 videoTypes = {
@@ -27,11 +27,11 @@ def setup_directories():
     
     print(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}: Successfully deleted all contents in 'tts' and 'static/output' folders.")
 
-def process_reddit_story(videoType, topic, userInput):
+def process_reddit_story(topic, userInput):
     """Generate a Reddit story video."""
     text = generateRedditStory(topic)
-    tts(text, "en_us_006", f"tts/{topic}_{videoType}_audio.mp3")  # Generate TTS file
-    editRedditStory("resources/parkour.mp4", f"tts/{topic}_{videoType}_audio.mp3", f"static/output/{topic}_{videoType}.mp4", userInput)  # Generate video
+    tts(text, "en_us_006", f"tts/reddit_audio.mp3")  # Generate TTS file
+    editRedditStory("resources/parkour.mp4", f"tts/reddit_audio.mp3", f"static/output/reddit_video.mp4")  # Generate video
 
 def process_wyr(op1_list, op2_list):
     """Generate a Would You Rather video."""
@@ -67,7 +67,7 @@ def generate_video():
             "red_story": request.form.get("red_story"),
             "promoGoal": request.form.get("promoGoal")
         }
-        process_reddit_story(videoType, topic, userInput)
+        process_reddit_story(topic, userInput)
     elif videoType == "movieClip":
         # Placeholder for movie clip processing
         pass

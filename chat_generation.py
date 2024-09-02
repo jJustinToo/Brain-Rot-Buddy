@@ -38,8 +38,6 @@ templates = {
     <Your generated title>
     <Your generated content>"""
 }
-
-
 redditPrompt = ChatPromptTemplate.from_template(templates["redditStory"])
 redditChain = redditPrompt | model  
 
