@@ -51,8 +51,8 @@
             
             <div id="wyrFields" class="hidden">
                 <div class="wyr-option">
-                    <input autocomplete="off" type="text" name="wyr_option_1[]" placeholder="Option 1">
-                    <input autocomplete="off" type="text" name="wyr_option_2[]" placeholder="Option 2">
+                    <input autocomplete="off" type="text" name="wyr_option_1" placeholder="Option 1">
+                    <input autocomplete="off" type="text" name="wyr_option_2" placeholder="Option 2">
                 </div>
                 <button type="button" onclick="addWyrOptions()">Add more options</button>
             </div>
@@ -60,12 +60,14 @@
         </form>
 
         <script>
+            let wyrOptionCount = 1; // Start with 1 because you have 1 initial option pair
+        
             function showFields() {
                 const videoType = document.getElementById('videoType').value;
-
+        
                 document.getElementById('redditFields').classList.add('hidden');
                 document.getElementById('wyrFields').classList.add('hidden');
-
+        
                 if (videoType === "reddit") {
                     document.getElementById("redditFields").classList.remove("hidden");
                 }
@@ -73,26 +75,34 @@
                     document.getElementById("wyrFields").classList.remove("hidden");
                 }
             }
-
+        
             document.getElementById('submitButton').addEventListener('click', function() {
                 if (document.getElementById('videoType').value && document.getElementById('topic').value) {
                     document.getElementById('loadingScreen').style.display = 'flex'; // Show the loading screen
                 }
-
             });
-
+        
             function addWyrOptions() {
-                const wyrFields = document.getElementById('wyrFields');
-                const newOptions = document.createElement('div');
-                newOptions.classList.add('wyr-option');
-                newOptions.innerHTML = `
-                    <input autocomplete="off" type="text" name="wyr_option_1[]" placeholder="Option 1">
-                    <input autocomplete="off" type="text" name="wyr_option_2[]" placeholder="Option 2">
-                `;
-                wyrFields.insertBefore(newOptions, wyrFields.children[wyrFields.children.length - 1]);
+                const maxOptions = 8;
+        
+                if (wyrOptionCount < maxOptions) {
+                    const wyrFields = document.getElementById('wyrFields');
+                    const newOptions = document.createElement('div');
+                    newOptions.classList.add('wyr-option');
+                    newOptions.innerHTML = `
+                        <input autocomplete="off" type="text" name="wyr_option_1" placeholder="Option 1">
+                        <input autocomplete="off" type="text" name="wyr_option_2" placeholder="Option 2">
+                    `;
+                    wyrFields.insertBefore(newOptions, wyrFields.children[wyrFields.children.length - 1]);
+        
+                    wyrOptionCount += 1;
+        
+                    if (wyrOptionCount >= maxOptions) {
+                        document.querySelector('button[onclick="addWyrOptions()"]').disabled = true;
+                    }
+                }
             }
-
-        </script>
+        </script>        
     </div>
 </body>
 </html>

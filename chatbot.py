@@ -49,6 +49,9 @@ def generateRedditStory(topic: str):
     print(colored(f'Text for a reddit story based on "{topic}" has been generated succesfully.', "green"))
     return markdown_to_plain_text(result)
 
+
+# def generateWYR():
+
 def produceImages(topic):
     pass
 

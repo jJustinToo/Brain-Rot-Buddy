@@ -12,6 +12,7 @@ def main():
     if os.path.exists('tts'):
         shutil.rmtree('tts')
     os.makedirs('tts')
+    os.makedirs('tts/wyr')
     
     if os.path.exists('static/output'):
         shutil.rmtree('static/output')
@@ -34,6 +35,16 @@ def movieClip():
     pass
 
 
+def wyr(op1_list, op2_list):
+    print(op1_list)
+    for i in range(len(op1_list)):
+        text = f"Would you rather {op1_list[i]}. . . . . or Would you rather {op2_list[i]}"
+        tts(text, "en_us_006", f"tts/wyr/audio_{i+1}.mp3") # Generate TTS file
+        
+    editWYR()
+    pass
+    # GENERATE TEX
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -55,19 +66,17 @@ def videos():
     elif videoType == "familyGuy":
         movieClip()
     elif videoType == 'wyr':
-        wyr_options_1 = request.form.getlist('wyr_option_1[]')
-        wyr_options_2 = request.form.getlist('wyr_option_2[]')
-        # Process the "Would you rather" video data
+        wyr_options_1 = request.form.getlist('wyr_option_1')
+        wyr_options_2 = request.form.getlist('wyr_option_2')
         
-        for option_1, option_2 in zip(wyr_options_1, wyr_options_2):
-            print(f"Option 1: {option_1}, Option 2: {option_2}")
-            # Handle the options
+        print(wyr_options_1)
+        wyr(wyr_options_1, wyr_options_2)
         
     
     end_time = time.time()  # Record the end time
     elapsed_time = end_time - start_time  
     print(f"Total time to generate function was {elapsed_time} seconds.")
-    return render_template('video.html', output=f"output/{topic}_{videoType}.mp4")
+    return render_template('video.html', output=f"output/{topic}_{videoType}.mp4") # THIS IS JUST EXAMPLE. EACH TYPE SHOULD RETURN ITS OWN FILE. I NEED BETTER FILE MANAGAEMENT.
     
     
 if __name__ == '__main__':

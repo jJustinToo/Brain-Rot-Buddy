@@ -12,6 +12,12 @@ def editRedditStory(background_video_path: str, tts_path: str, output_path: str,
         final_clip = sub_video_clip.set_audio(audio_clip)
         # Write the final video to a file using multithreading
         final_clip.write_videofile(output_path, codec="libx264", audio_codec="aac", threads=6)
+        
+        
+def editWYR():
+    # take all audio files in tts / wyr folder with name == {topic}_{topic}_{i+1}
+    # Speech to text that audio. Add images when needed. 
+    pass
 
 # start_time = time.time()  # Record the start time
 # editRedditStory("resources/parkour.mp4", "he_reddit_audio.mp3", "output_video.mp4")

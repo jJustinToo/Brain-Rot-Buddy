@@ -69,10 +69,17 @@ button {
     font-size: 16px;
     cursor: pointer;
     width: 100%;
+    margin-bottom: 15px;
 }
 
 button:hover {
     background-color: #45a049;
+}
+
+button:disabled {
+    background-color: #ccc; /* Gray background */
+    cursor: not-allowed;    /* Show a 'no' cursor */
+    color: #666;            /* Dim the text color */
 }
 
 .text-center {
@@ -121,20 +128,22 @@ button:hover {
 .wyr-option {
     display: flex;
     justify-content: space-between; /* Ensures Option 1 and Option 2 are on opposite sides */
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .wyr-option input {
     width: 48%; /* Ensures that both inputs take up equal space and leave some margin between them */
+    margin-bottom: 5px;
 }
 
 .wyr-option input:first-child {
-    order: 2; /* Positions the first input (Option 1) on the right */
+    order: 1; /* Positions the first input (Option 1) on the right */
 }
 
 .wyr-option input:last-child {
-    order: 1; /* Positions the second input (Option 2) on the left */
+    order: 2; /* Positions the second input (Option 2) on the left */
 }
+
 
 
 /* Styling for smaller loading GIF */
