@@ -20,7 +20,9 @@ templates = {
     "redditStory": """Write a Reddit-style story in the first person, starting with a catchy and dramatic title that captures attention. The title should mimic the style of popular Reddit posts, be between 15-20 words long, and include specific details such as age and gender (e.g., "I (33 MALE) am divorcing my wife (33 FEMALE) after discovering the truth."). Adjust the ages to fit the narrative.
 
     The story should follow the format and tone of posts commonly found in subreddits like r/relationships or r/AmItheAsshole, where the narrator describes a personal experience. The content should be engaging, believable, and evoke strong emotions, but it must remain plausible. The story should be 100-125 words long with no filler, focusing on making the narrative vivid, relatable, and memorable.
-    **Important:** Do not repeat or reuse the provided example titles or content. Create an original title and story based on the specific topic provided. 100-125 words is a hard rule. I will not accept a story with words less than or over
+    **Important:** Do not repeat or reuse the provided example titles or content. Create an original title and story based on the specific topic provided. 
+    
+    125-150 words is a hard rule. I will not accept a story with words less than or over
     Please only use text and proper grammer. 
     Please note that all text generated will be text to speeched later.
     

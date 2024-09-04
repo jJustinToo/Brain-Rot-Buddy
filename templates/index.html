@@ -12,7 +12,7 @@
             <div class="loading-bar"></div>
         </div> -->
         <!-- <img src="{{ url_for('static', filename='skull_loading.gif') }}" alt="Loading" class="skull"> -->
-        <h1 class="waiting">Your video is being generated currently. Please enjoy some brainrot while waiting.</h1>
+        <h1 class="waiting">Your video is being generated currently.</h1>
         <video autoplay="True" loop controls>
             <source src="{{ url_for('static', filename="loading_videos/1.mp4") }}" type="video/mp4">
             Your browser does not support the video tag.
@@ -46,6 +46,9 @@
             <div id="redditFields" class="hidden">
                 <input autocomplete="off" autofocus id="topic" name='topic' placeholder="Your topic of interest" type="text">
                 <input autocomplete="off" type="text" name="red_story" placeholder="Company Name">
+                <select autocomplete="off" name="reddit_bg" required>
+                    <option selected value="mc_pk">Minecraft Parkour</option>
+                </select>
                 <input autocomplete="off" type="text" name="promoGoal" placeholder="Promotion's goal">
             </div>
             
