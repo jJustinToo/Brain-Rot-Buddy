@@ -35,7 +35,7 @@ templates = {
     * Please also write with proper punctuation like commas and full stops and quotes to emphasise speech patterns.
 
     Please format the output as follows:
-    <Your generated title>
+    <Your generated title>!
     <Your generated content>"""
 }
 redditPrompt = ChatPromptTemplate.from_template(templates["redditStory"])
@@ -52,4 +52,7 @@ def generateRedditStory(topic: str):
 
 def produceImages(topic):
     pass
+
+
+# print(generateRedditStory("Kamala"))
 

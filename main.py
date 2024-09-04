@@ -15,23 +15,26 @@ videoTypes = {
 
 def setup_directories():
     """Set up the necessary directories for video processing."""
-    # Clean and recreate 'tts' directory
-    if os.path.exists('tts'):
-        shutil.rmtree('tts')
-    os.makedirs('tts')
+    # # Clean and recreate 'tts' directory
+    # if os.path.exists('tts'):
+    #     shutil.rmtree('tts')
+    # os.makedirs('tts')
     
-    # Clean and recreate 'static/output' directory
-    if os.path.exists('static/output'):
-        shutil.rmtree('static/output')
-    os.makedirs('static/output')
+    # # Clean and recreate 'static/output' directory
+    # if os.path.exists('static/output'):
+    #     shutil.rmtree('static/output')
+    # os.makedirs('static/output')
     
     print(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}: Successfully deleted all contents in 'tts' and 'static/output' folders.")
+
 
 def process_reddit_story(topic, userInput):
     """Generate a Reddit story video."""
     text = generateRedditStory(topic)
     tts(text, "en_us_006", f"tts/reddit_audio.mp3")  # Generate TTS file
-    editRedditStory("resources/parkour.mp4", f"tts/reddit_audio.mp3", f"static/output/reddit_video.mp4")  # Generate video
+    editRedditStory("resources/parkour_horizontal.mp4", f"tts/reddit_audio.mp3", f"static/output/reddit_video.mp4")  # Generate video
+    return f"output/reddit_video.mp4"
+
 
 def process_wyr(op1_list, op2_list):
     """Generate a Would You Rather video."""
@@ -39,11 +42,13 @@ def process_wyr(op1_list, op2_list):
     if not os.path.exists(wyr_output_loc):
         os.makedirs(wyr_output_loc)
     
+    tts_files = []
     for i in range(len(op1_list)):
-        tts(op1_list[i], "en_us_006", f"{wyr_output_loc}/row{i+1}_op1.mp3")  # Generate TTS file
-        tts(op2_list[i], "en_us_006", f"{wyr_output_loc}/row{i+1}_op2.mp3")  # Generate TTS file
+        tts(f"Would you rather have {op1_list[i]} or {op2_list[i]}", "en_us_006", f"tts/wyr/{i+1}.mp3")  # Generate TTS file
+        tts_files.append(f"tts/wyr/{i+1}.mp3")
         
-    editWYR()  # Edit WYR video
+    editWYR(tts_files)  # Edit WYR video
+    return # returns file loc
 
 app = Flask(__name__)
 
@@ -67,23 +72,24 @@ def generate_video():
             "red_story": request.form.get("red_story"),
             "promoGoal": request.form.get("promoGoal")
         }
-        process_reddit_story(topic, userInput)
+        output = process_reddit_story(topic, userInput)
     elif videoType == "movieClip":
         # Placeholder for movie clip processing
         pass
     elif videoType == 'wyr':
         wyr_options_1 = request.form.getlist('wyr_option_1')
         wyr_options_2 = request.form.getlist('wyr_option_2')
-        process_wyr(wyr_options_1, wyr_options_2)
+        output = process_wyr(wyr_options_1, wyr_options_2)
         
     # Record end time
     end_time = time.time()
     elapsed_time = end_time - start_time
     print(f"Total time to generate function was {round(elapsed_time, 2)} seconds.")
-    output = f"output/{topic}_{videoType}.mp4"
+    # output = f"output/{topic}_{videoType}.mp4"
     # Return the path to the generated video
     return render_template('video.html', output=output)
 
 if __name__ == '__main__':
     setup_directories()
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run()
