@@ -45,11 +45,11 @@
             
             <div id="redditFields" class="hidden">
                 <input autocomplete="off" autofocus id="topic" name='topic' placeholder="Your topic of interest" type="text">
-                <input autocomplete="off" type="text" name="red_story" placeholder="Company Name">
                 <select autocomplete="off" name="reddit_bg" required>
                     <option selected value="mc_pk">Minecraft Parkour</option>
+                    <option selected value="gta">GTA Car</option>
+                    <option selected value="soap">Satifying Soap Cutting</option>
                 </select>
-                <input autocomplete="off" type="text" name="promoGoal" placeholder="Promotion's goal">
             </div>
             
             <div id="wyrFields" class="hidden">
@@ -80,9 +80,7 @@
             }
         
             document.getElementById('submitButton').addEventListener('click', function() {
-                if (document.getElementById('videoType').value && document.getElementById('topic').value) {
-                    document.getElementById('loadingScreen').style.display = 'flex'; // Show the loading screen
-                }
+                document.getElementById('loadingScreen').style.display = 'flex'; // Show the loading screen
             });
         
             function addWyrOptions() {

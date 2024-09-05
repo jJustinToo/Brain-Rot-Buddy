@@ -38,16 +38,13 @@ def process_reddit_story(topic, userInput):
 
 def process_wyr(op1_list, op2_list):
     """Generate a Would You Rather video."""
-    wyr_output_loc = f'tts/{op1_list[0]}'
-    if not os.path.exists(wyr_output_loc):
-        os.makedirs(wyr_output_loc)
     
     tts_files = []
     for i in range(len(op1_list)):
-        tts(f"Would you rather have {op1_list[i]} or {op2_list[i]}", "en_us_006", f"tts/wyr/{i+1}.mp3")  # Generate TTS file
-        tts_files.append(f"tts/wyr/{i+1}.mp3")
+        tts(f"Would you rather have {op1_list[i]} or {op2_list[i]}", "en_us_006", f"tts/wyr_{i+1}.mp3")  # Generate TTS file
+        tts_files.append(f"tts/wyr_{i+1}.mp3")
         
-    editWYR(tts_files)  # Edit WYR video
+    # editWYR(tts_files)  # Edit WYR video
     return # returns file loc
 
 app = Flask(__name__)
@@ -55,6 +52,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     """Render the index page."""
+    setup_directories()
     return render_template('index.html', videoTypes=videoTypes)
     
 @app.route('/video', methods=["POST"])

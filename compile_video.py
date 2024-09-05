@@ -1,4 +1,5 @@
 from moviepy.editor import VideoFileClip, AudioFileClip, ImageClip, TextClip, CompositeVideoClip, concatenate_audioclips
+from moviepy.audio.AudioClip import AudioClip
 import random
 import whisper
 # import time
@@ -65,22 +66,25 @@ def editRedditStory(background_video_path: str, tts_path: str, output_path: str)
 def editWYR(tts_files):
     # Load the image
     image = ImageClip("path_to_image.jpg")
+    
+    # audio_clips = []
+    # for audio in tts_files:
+    #     audio_clips.append(AudioFileClip(audio))
+    #     audio_clips.append(AudioFileClip(ticking.mp3))
+    #     audio_clips.append(AudioClip(lambda t: [0], duration=duration))
+    
+    
+    
+    # final_audio = concatenate_audioclips(audio_clips)
 
-    # Load all the audio files
-    audio_files = ["audio1.mp3", "audio2.mp3", "audio3.mp3"]  # Replace with your file names
-    audio_clips = [AudioFileClip(audio) for audio in audio_files]
+    # # Set the duration of the image clip to match the total duration of the audio
+    # image = image.set_duration(final_audio.duration)
 
-    # Concatenate all the audio files
-    final_audio = concatenate_audioclips(audio_clips)
+    # # Set the audio of the image clip to the concatenated audio
+    # video = image.set_audio(final_audio)
 
-    # Set the duration of the image clip to match the total duration of the audio
-    image = image.set_duration(final_audio.duration)
-
-    # Set the audio of the image clip to the concatenated audio
-    video = image.set_audio(final_audio)
-
-    # Write the result to a file
-    video.write_videofile("output_video.mp4", codec="libx264", audio_codec="aac")
+    # # Write the result to a file
+    # video.write_videofile("output_video.mp4", codec="libx264", audio_codec="aac")
 
     
     
