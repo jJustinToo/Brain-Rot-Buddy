@@ -8,7 +8,6 @@ Add
 * static/output folder
 * tts folder 
 * static/loading_images folder
-* static/preview_images folder
 
 
 https://www.youtube.com/watch?v=ma12cfzGnRo
@@ -22,3 +21,5 @@ https://github.com/Giooorgiooo/TikTok-Voice-TTS
 
 
 add word limit when i reach there
+
+pip install moviepy flask openai-whisper langchain_ollama langchain termcolor bs4 markdown

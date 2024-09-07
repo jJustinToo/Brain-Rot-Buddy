@@ -17,44 +17,27 @@ def markdown_to_plain_text(markdown_text):
 model = OllamaLLM(model="gemma2:2b")
 
 templates = {
-    "redditStory": """Write a Reddit-style story in the first person, starting with a catchy and dramatic title that captures attention. The title should mimic the style of popular Reddit posts, be between 15-20 words long, and include specific details such as age and gender (e.g., "I (33 MALE) am divorcing my wife (33 FEMALE) after discovering the truth."). Adjust the ages to fit the narrative.
-
-    The story should follow the format and tone of posts commonly found in subreddits like r/relationships or r/AmItheAsshole, where the narrator describes a personal experience. The content should be engaging, believable, and evoke strong emotions, but it must remain plausible. The story should be 100-125 words long with no filler, focusing on making the narrative vivid, relatable, and memorable.
-    **Important:** Do not repeat or reuse the provided example titles or content. Create an original title and story based on the specific topic provided. 
-    
-    125-150 words is a hard rule. I will not accept a story with words less than or over
-    Please only use text and proper grammer. 
-    Please note that all text generated will be text to speeched later.
+    "reddit": """Write a fictional Reddit story in the first person, based on the given topic. 
+    The post should feel realistic, with specific details like ages, places, and personal experiences to make it believable. 
+    Craft a strong, attention-grabbing title that reflects the essence of the story. 
+    The story should be between 125-150 words, concise yet engaging, without unnecessary filler. 
+    The tone should be casual, as if written by an everyday Reddit user sharing an interesting or bizarre experience. 
+    Be sure to include emotional reactions, reflections, or thoughts to make the post relatable."
+    Please do not use emojis.
     
     Topic: {topic}
-
-    **Formatting Notes:**
-    * Use plain text only. Do not include any symbols, hashtags, or other formatting characters in the title or content.
-    * All acronyms should be written out as words as best as you can.
-    * When generating a title, write it out as plain text only. Avoid using any extraneous symbols or formatting.
-    * The title and content should only contain regular text, without any special characters or formatting.
-    * The generated text will be used for text-to-speech processing, so ensure it is clean and free from any non-text symbols.
-    * Please also write with proper punctuation like commas and full stops and quotes to emphasise speech patterns.
-
-    Please format the output as follows:
-    <Your generated title>!
-    <Your generated content>"""
+    
+    Output should look like this:
+    <generated title, ending with puncuation sign.>
+    <generated story that is 125-150words>
+    
+    """
 }
-redditPrompt = ChatPromptTemplate.from_template(templates["redditStory"])
-redditChain = redditPrompt | model  
 
-def generateRedditStory(topic: str):
+def generate_text(type: str, topic: str):
+    prompt = ChatPromptTemplate.from_template(templates[type])
+    chain = prompt | model
     print(f'Generating a reddit story about "{topic}"...')
-    result = redditChain.invoke({"topic": topic})
+    result = chain.invoke({"topic": topic})
     print(colored(f'Text for a reddit story based on "{topic}" has been generated succesfully.', "green"))
-    return markdown_to_plain_text(result)
-
-
-# def generateWYR():
-
-def produceImages(topic):
-    pass
-
-
-# print(generateRedditStory("Kamala"))
-
+    return markdown_to_plain_text(result).splitlines()
