@@ -7,6 +7,18 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/library', methods=["POST"])
+def return_library():
+    video_folder = 'static/output'  # Replace with the path to your folder
+    video_list = []
+
+    for filename in os.listdir(video_folder):
+        if filename.endswith('.mp4'):  # Check if file is an mp4
+            video_list.append(f"output/{filename}")  # Just append the file name, not the full path
+
+
+    return render_template('library.html', videos=video_list)
     
 @app.route('/video', methods=["POST"])
 def generate_video():
@@ -33,19 +45,19 @@ def generate_video():
 
 def clear_dirs():
     # Clean and recreate 'tts' directory
-    if os.path.exists('tts'):
-        shutil.rmtree('tts')
-    os.makedirs('tts')
+    if os.path.exists('temp'):
+        shutil.rmtree('temp')
+    os.makedirs('temp')
     
     # Clean and recreate 'static/output' directory
     if os.path.exists('static/output'):
         shutil.rmtree('static/output')
     os.makedirs('static/output')
     
-    print(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}: Successfully deleted all contents in 'tts' and 'static/output' folders.")
+    print(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}: Successfully deleted all contents in 'temp' and 'static/output' folders.")
 
 
 if __name__ == '__main__':
-    clear_dirs()
-    app.run(debug=True)
-    # app.run()
+    # clear_dirs()
+    # app.run(debug=True)
+    app.run()

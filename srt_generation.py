@@ -15,4 +15,5 @@ def transcribe(file_path):
                 "end": word.get('end', 0)
             })
         
+    print("Script has been transcribed")
     return words

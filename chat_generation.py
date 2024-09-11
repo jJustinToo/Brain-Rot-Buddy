@@ -28,7 +28,7 @@ templates = {
     Topic: {topic}
     
     Output should look like this:
-    <generated title, ending with puncuation sign.>
+    <generated title><! or .>
     <generated story that is 125-150words>
     
     """

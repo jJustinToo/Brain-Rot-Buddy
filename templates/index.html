@@ -34,15 +34,15 @@
             <select autocomplete="off" id="videoType" name="videoType" onchange="showFields()" required>
                 <option selected disabled value="">Choose a video type</option>
                 <option value="reddit">Reddit Story</option>
-                <option value="wyr">Would You Rather</option>
+                <!-- <option value="wyr">Would You Rather</option> -->
             </select>
             
             <div id="redditFields" class="hidden">
                 <input autocomplete="off" autofocus id="topic" name='topic' placeholder="Your topic of interest" type="text">
                 <select autocomplete="off" name="reddit_bg" required>
                     <option selected value="mc_pk">Minecraft Parkour</option>
-                    <option value="gta">GTA Car</option>
-                    <option value="soap">Satifying Soap Cutting</option>
+                    <option value="gta">GTA Car on Ramp</option>
+                    <option value="mobile_games">Mobile Games</option>
                 </select>
                 <select autocomplete="off" name="reddit_voice" required>
                     <option selected value="en_us_006">US Male 1</option>
@@ -59,6 +59,10 @@
                 <button type="button" onclick="addWyrOptions()">Add more options</button>
             </div>
             <button id="submitButton" type="submit">Generate</button>
+        </form>
+
+        <form action="/library" method="post">
+            <button type="submit">View Past Creations</button>
         </form>
 
         <script>
